@@ -18,7 +18,7 @@ class Member:
         while True:
             member_id = incrementer()
             name = input("Enter member name: ")
-            member = {"member_id": member_id, "name": name, "total_borrow_books":0, "borrow_books":{} }
+            member = {"member_id": member_id, "name": name, "total_borrow_books":0, "borrow_books":[] }
             self.members.append(member)
             print(f"Member '{name}',Member_id '{member_id}' added successfully!")
             while True:

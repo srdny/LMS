@@ -50,7 +50,14 @@ def main_menu():
                         else:
                             print(member_by_id)
                             print(book_by_isbn)
-                            break
+                            if book_by_isbn["stock"] < 0:
+                                print("There is no copies available")
+                                break
+                            else: 
+                                book.book_borrow(book_by_isbn['isbn'])
+                                print(book_by_isbn)
+                                break
+
                 except ValueError:
                     print("Invalid input. Please enter a number.")
             input("Press anykey to continue...")
