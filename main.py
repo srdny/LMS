@@ -29,12 +29,43 @@ def main_menu():
             input("Press anykey to continue...")
         elif choice == '5': 
             book.find_book_by_title()
-            input("Press Enter to continue...")
+            input("Press anykey to continue...")
         elif choice == '6': 
             book.find_book_by_author()
-            input("Press Enter to continue...")
+            input("Press anykey to continue...")
         elif choice == '7':
-            print('2')
+            while True:
+                try:
+                    member_id = input('member id: ')
+                    member_by_id = member.check_by_memberid(member_id) 
+                    if member_by_id == None:
+                        print("Member ID doesn't exist.") 
+                        break
+                    else:
+                        isbn = input('isbn: ')
+                        book_by_isbn = book.check_by_isbn(isbn)
+                        if book_by_isbn == None:
+                            print("Book Doesn't exist.")
+                            break
+                        else:
+                            print(member_by_id)
+                            print(book_by_isbn)
+                            break
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+            input("Press anykey to continue...")
+
+            #book.check_by_isbn(isbn)
+            # if member.check_by_memberid(member_id) == True:
+            #     isbn = input('isbn :')
+            #     if book.check_by_isbn(isbn) == True:
+            #         print('done')            
+            # if not member:
+            #     print(f"Member with ID '{member_id}' not found.")
+            #     return   
+            # if not book:
+            #     print(f"Book with ISBN '{isbn}' not found.")
+            #     return  
             #borrow_book()
         elif choice == '8':
             print('2')

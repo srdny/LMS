@@ -61,3 +61,10 @@ class BookShelf:
         else:
             print(f"No books found by the author '{author}'.")
 
+    def check_by_isbn(self,isbn):
+        book = next((b for b in self.books if b['isbn'] == isbn), None)
+        return book
+        
+
+
+

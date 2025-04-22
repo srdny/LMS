@@ -3,14 +3,24 @@ import random
 class Member:
     def __init__(self):
         self.members=[]
+        self.counter_id = {"value": 1}
+
+    def auto_increament(self, width=4):
+        def increment():
+            current = self.counter_id["value"]
+            self.counter_id["value"]+=1
+            return f"{current:0{width}}"
+        return increment
+        
 
     def add_member(self):
+        incrementer = self.auto_increament()
         while True:
-            member_id = random.randint(1000000,1999999)
+            member_id = incrementer()
             name = input("Enter member name: ")
             member = {"member_id": member_id, "name": name, "total_borrow_books":0, "borrow_books":{} }
             self.members.append(member)
-            print(f"Member '{name}' added successfully!")
+            print(f"Member '{name}',Member_id '{member_id}' added successfully!")
             while True:
                 choice = input("Add Again ? [Y/N]: ").upper()
                 if choice in ("Y", "N"):
@@ -28,3 +38,7 @@ class Member:
         for member in self.members:
             print(f"ID: {member['member_id']}, Name: {member['name']}, Total Borrow Book: {member['total_borrow_books']}")
         print("-------------------")
+    
+    def check_by_memberid(self,member_id): 
+        member_by_id = next((m for m in self.members if m['member_id'] == member_id), None)
+        return member_by_id
