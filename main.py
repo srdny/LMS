@@ -40,43 +40,51 @@ def main_menu():
                     member_by_id = member.check_by_memberid(member_id) 
                     if member_by_id == None:
                         print("Member ID doesn't exist.") 
-                        break
+                        break 
                     else:
                         isbn = input('isbn: ')
                         book_by_isbn = book.check_by_isbn(isbn)
-                        if book_by_isbn == None:
-                            print("Book Doesn't exist.")
-                            break
+                        if book_by_isbn == None: 
+                            print(f"Book with ISBN '{isbn}' not found.")
                         else:
-                            print(member_by_id)
-                            print(book_by_isbn)
-                            if book_by_isbn["stock"] < 0:
-                                print("There is no copies available")
-                                break
+                            if book_by_isbn["stock"] <= 0:
+                                print("There is no copies available") 
                             else: 
-                                book.book_borrow(book_by_isbn['isbn'])
-                                print(book_by_isbn)
-                                break
+                                member_book = {"book_title": book_by_isbn['title'],"isbn": book_by_isbn['isbn']}
+                                book.borrow_book(isbn)
+                                member.borrow_book(member_by_id,member_book)
+                                print("Borrow Success !")
+                        break
 
                 except ValueError:
                     print("Invalid input. Please enter a number.")
-            input("Press anykey to continue...")
-
-            #book.check_by_isbn(isbn)
-            # if member.check_by_memberid(member_id) == True:
-            #     isbn = input('isbn :')
-            #     if book.check_by_isbn(isbn) == True:
-            #         print('done')            
-            # if not member:
-            #     print(f"Member with ID '{member_id}' not found.")
-            #     return   
-            # if not book:
-            #     print(f"Book with ISBN '{isbn}' not found.")
-            #     return  
-            #borrow_book()
+            input("Press anykey to continue...") 
         elif choice == '8':
-            print('2')
-            #return_book()
+            while True:
+                try:
+                    member_id = input('member id: ')
+                    member_by_id = member.check_by_memberid(member_id)
+                    if member_by_id == None:
+                        print("Member ID doesn't exist.") 
+                        break
+                    else:
+                        if member_by_id['total_borrow_books'] <= 0:
+                            print("Haven't borrowed anything yet")
+                        else:
+                            isbn = input('isbn: ')
+                            book_by_isbn = book.check_by_isbn(isbn)
+                            if book_by_isbn == None: 
+                                print(f"Book with ISBN '{isbn}' not found.") 
+                            else:
+                                if member.return_book(member_by_id,book_by_isbn)  == 1:
+                                    book.return_book(isbn)
+                                    print("successfully returned the book")
+                                else:
+                                    print("Failed returned book")
+                        break
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+            input("Press anykey to continue...") 
         elif choice == '9':
             print('2')
             #view_borrowed_books_by_member()

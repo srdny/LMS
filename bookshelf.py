@@ -62,18 +62,16 @@ class BookShelf:
             print(f"No books found by the author '{author}'.")
 
     def check_by_isbn(self,isbn):
-        book = next((b for b in self.books if b['isbn'] == isbn), None)
+        book = next((b for b in self.books if b['isbn'] == isbn), None) 
         return book
-    
-    def book_borrow(self,isbn):
-        #found_books = [book for book in self.books if isbn in book['isbn']]
+        
+    def borrow_book(self,isbn): 
         index = next((i for i, d in enumerate(self.books) if d["isbn"] == isbn), -1)
         self.books[index]['stock'] -= 1
  
-        # found_books['stock'] -= 1
-        # print(f"Title: {found_books['title']}, Author: {found_books['author']}, ISBN: {found_books['isbn']}, Available Stocks: {found_books['stock']}")
-        
-        
+    def return_book(self,isbn): 
+        index = next((i for i, d in enumerate(self.books) if d["isbn"] == isbn), -1)
+        self.books[index]['stock'] += 1    
 
 
 

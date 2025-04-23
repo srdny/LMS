@@ -36,9 +36,28 @@ class Member:
             return
         print("\n--- All Members ---")
         for member in self.members:
-            print(f"ID: {member['member_id']}, Name: {member['name']}, Total Borrow Book: {member['total_borrow_books']}")
+            if member['total_borrow_books']<= 0:
+                print(f"ID: {member['member_id']}, Name: {member['name']}, Total Borrow Book: {member['total_borrow_books']}")
+            else:
+                print(f"ID: {member['member_id']}, Name: {member['name']}, Total Borrow Book: {member['total_borrow_books']}, Borrow Book: {member['borrow_books']}")
         print("-------------------")
     
     def check_by_memberid(self,member_id): 
         member_by_id = next((m for m in self.members if m['member_id'] == member_id), None)
         return member_by_id
+    
+    def borrow_book(self,member_by_id,book):
+        index = next((i for i, d in enumerate(self.members) if d["member_id"] == member_by_id['member_id']), -1)
+        self.members[index]['total_borrow_books'] += 1
+        self.members[index]['borrow_books'].append(book)
+    
+    def return_book(self,member_by_id,book):
+        index = next((i for i, d in enumerate(self.members) if d["member_id"] == member_by_id['member_id']), -1)
+        if self.members[index]['borrow_books']['isbn'] == book['isbn']:
+            self.members[index]['total_borrow_books'] -= 1 
+            index2 = next((i for i, d in enumerate(self.members[index]['borrow_books']) if d["isbn"] == book['isbn']), -1)
+            self.members[index]['borrow_books'].pop(index2)
+            return 1
+        else:
+            return 0
+        
