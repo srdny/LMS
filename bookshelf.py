@@ -6,10 +6,12 @@ class BookShelf:
     def show_catalog(self):
         if not self.books:
             print("No books registered.")
-            return
-        for book in self.books: 
-            print(f"Title: {book['title']}, Author: {book['author']}, ISBN: {book['isbn']}, Available Stocks: {book['stock']}")
-            print("------------------------------------------------")
+            return 0
+        else:
+            for book in self.books: 
+                print(f"Title: {book['title']}, Author: {book['author']}, ISBN: {book['isbn']}, Available Stocks: {book['stock']}")
+                print("------------------------------------------------")
+            return 1
 
     def add_book(self):
         while True:
